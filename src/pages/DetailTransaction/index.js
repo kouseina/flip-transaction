@@ -1,23 +1,25 @@
 import Clipboard from '@react-native-clipboard/clipboard';
-import {useNavigation} from '@react-navigation/core';
+import {useNavigation, useRoute} from '@react-navigation/core';
 import React from 'react';
 import {Text, ToastAndroid, TouchableOpacity, View} from 'react-native';
 import {IconArrowForward, IconCopy} from '../../assets';
+import dateConvert from '../../config/dateConvert';
 
 import styles from './style';
 
 const DetailTransaction = () => {
   const navigation = useNavigation();
+  const data = useRoute().params.data;
 
   const copyToClipboard = () => {
-    Clipboard.setString('#FT1627635');
+    Clipboard.setString(`#${data.id}`);
     ToastAndroid.show('copied', ToastAndroid.SHORT);
   };
 
   return (
     <View style={styles.page}>
       <View style={[styles.row, styles.border, {borderBottomWidth: 0.5}]}>
-        <Text style={styles.bold}>ID TRANSAKSI #FT1627635 </Text>
+        <Text style={styles.bold}>ID TRANSAKSI #{data.id} </Text>
         <TouchableOpacity onPress={copyToClipboard}>
           <IconCopy />
         </TouchableOpacity>
@@ -36,33 +38,37 @@ const DetailTransaction = () => {
       </View>
       <View style={styles.column}>
         <View style={styles.row}>
-          <Text style={[styles.bold, styles.nameBank]}>Permata</Text>
+          <Text style={[styles.bold, styles.nameBank]}>{data.sender_bank}</Text>
           <IconArrowForward />
-          <Text style={[styles.bold, styles.nameBank]}>BNI</Text>
+          <Text style={[styles.bold, styles.nameBank]}>
+            {data.beneficiary_bank}
+          </Text>
         </View>
         <View style={[styles.row, styles.justifyBetween]}>
           <View style={styles.justifyStart}>
             <View style={styles.card}>
-              <Text style={[styles.bold, styles.name]}>Syifa Salsabila</Text>
-              <Text>0312918328</Text>
+              <Text style={[styles.bold, styles.name]}>
+                {data.beneficiary_name}
+              </Text>
+              <Text>{data.account_number}</Text>
             </View>
             <View style={styles.card}>
               <Text style={styles.bold}>BERITA TRANSFER</Text>
-              <Text>Coba banking yey</Text>
+              <Text>{data.remark}</Text>
             </View>
             <View style={styles.card}>
               <Text style={styles.bold}>WAKTU DIBUAT</Text>
-              <Text>8 April 2020</Text>
+              <Text>{dateConvert(data.created_at)}</Text>
             </View>
           </View>
           <View style={styles.justifyStart}>
             <View style={styles.card}>
               <Text style={styles.bold}>Nominal</Text>
-              <Text>Rp10.000</Text>
+              <Text>Rp{data.amount}</Text>
             </View>
             <View style={styles.card}>
               <Text style={styles.bold}>KODE UNIK</Text>
-              <Text>50</Text>
+              <Text>{data.unique_code}</Text>
             </View>
           </View>
         </View>

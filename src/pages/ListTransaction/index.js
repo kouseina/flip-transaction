@@ -16,7 +16,6 @@ import TransactionCard from '../../containers/TransactionCard';
 import styles from './style';
 
 const ListTransaction = () => {
-  const navigation = useNavigation();
   const [modalVisible, setModalVisible] = React.useState(false);
   const [filter, setFilter] = React.useState('URUTKAN');
   const [dataTransaction, setDataTransaction] = React.useState([]);
@@ -77,12 +76,7 @@ const ListTransaction = () => {
       <FlatList
         style={styles.listView}
         data={dataTransaction}
-        renderItem={({item}) => (
-          <TransactionCard
-            onPress={() => navigation.navigate('DetailTransaction')}
-            data={item}
-          />
-        )}
+        renderItem={({item}) => <TransactionCard data={item} />}
       />
     </View>
   );

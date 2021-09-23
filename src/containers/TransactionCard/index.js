@@ -1,27 +1,20 @@
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {IconArrowForward} from '../../assets';
 import {Label} from '../../components';
+import dateConvert from '../../config/dateConvert';
 
 import styles from './style';
 
-const TransactionCard = ({onPress, data}) => {
+const TransactionCard = ({data}) => {
+  const navigation = useNavigation();
   const isSuccess = () => data.status === 'SUCCESS';
-  const createAt = Date(data.completed_at);
-
-  const GetFormattedDate = dataTime => {
-    let data = Date(dataTime);
-    var month = data.getMonth() + 1;
-    var day = data.getDate();
-    var year = data.getFullYear();
-
-    return month + '/' + day + '/' + year;
-  };
-
-  console.log(data ? GetFormattedDate(createAt) : 'null');
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate('DetailTransaction', {data})}>
       <View style={styles.labelLeft(isSuccess())} />
       <View style={styles.padding}>
         <View style={styles.column}>
@@ -36,7 +29,7 @@ const TransactionCard = ({onPress, data}) => {
           <Text>
             <Text>Rp{data ? data.amount : ''} </Text>
             <Text style={{fontSize: 9}}> &#9679; </Text>
-            <Text> 8 April 2020</Text>
+            <Text>{dateConvert(data.created_at)}</Text>
           </Text>
         </View>
         <Label isSuccess={isSuccess()} />
