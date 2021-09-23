@@ -29,6 +29,6 @@ export default StyleSheet.create({
   },
 
   listView: {
-    marginVertical: 12,
+    marginTop: 12,
   },
 });
