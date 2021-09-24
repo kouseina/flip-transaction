@@ -75,11 +75,18 @@ const ListTransaction = () => {
   };
 
   const searchFilter = () => {
+    const toCapitalCase = word =>
+      word
+        .toLowerCase()
+        .replace(/\w/, firstLetter => firstLetter.toUpperCase());
+
     const filtered = fixDataTransaction.filter(data => {
       const nameLow = data.beneficiary_name.toLowerCase();
       const nameUp = data.beneficiary_name.toUpperCase();
       const bankUp = data.beneficiary_bank.toUpperCase();
+      const bankCap = toCapitalCase(data.beneficiary_bank);
       const senderBankUp = data.sender_bank.toUpperCase();
+      const senderBankCap = toCapitalCase(data.sender_bank);
       const amount = data.amount.toString();
 
       return (
@@ -88,6 +95,8 @@ const ListTransaction = () => {
         bankUp.includes(search) === true ||
         amount.includes(search) === true ||
         senderBankUp.includes(search) === true ||
+        bankCap.includes(search) === true ||
+        senderBankCap.includes(search) === true ||
         data.beneficiary_name.includes(search) === true ||
         data.beneficiary_bank.includes(search) === true ||
         data.sender_bank.includes(search) === true
