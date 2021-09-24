@@ -1,13 +1,5 @@
-import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {
-  FlatList,
-  ListViewComponent,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {IconArrowDownward, IconSearch} from '../../assets';
 import RadioButton from '../../components/RadioButton';
 import dataRadiobutton from '../../config/data.radiobutton';
@@ -39,7 +31,9 @@ const ListTransaction = () => {
     getListTransaction();
   }, []);
 
-  console.log(dataTransaction[0]);
+  React.useEffect(() => {
+    console.log(dataTransaction[0]);
+  }, [filter]);
 
   return (
     <View style={styles.page}>

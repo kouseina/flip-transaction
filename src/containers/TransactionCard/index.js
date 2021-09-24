@@ -4,6 +4,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {IconArrowForward} from '../../assets';
 import {Label} from '../../components';
 import dateConvert from '../../config/dateConvert';
+import numberConvert from '../../config/numberConvert';
 
 import styles from './style';
 
@@ -19,17 +20,19 @@ const TransactionCard = ({data}) => {
       <View style={styles.padding}>
         <View style={styles.column}>
           <View style={styles.row}>
-            <Text style={styles.nameBank}>{data ? data.sender_bank : ''}</Text>
+            <Text style={[styles.nameBank, styles.senderBank(data)]}>
+              {data ? data.sender_bank : ''}
+            </Text>
             <IconArrowForward />
-            <Text style={styles.nameBank}>
+            <Text style={[styles.nameBank, styles.beneficiaryBank(data)]}>
               {data ? data.beneficiary_bank : ''}
             </Text>
           </View>
           <Text style={styles.name}>{data ? data.beneficiary_name : ''}</Text>
           <Text>
-            <Text>Rp{data ? data.amount : ''} </Text>
+            <Text>{data ? numberConvert(data.amount) : ''} </Text>
             <Text style={{fontSize: 9}}> &#9679; </Text>
-            <Text>{dateConvert(data.created_at)}</Text>
+            <Text> {dateConvert(data.created_at)}</Text>
           </Text>
         </View>
         <Label isSuccess={isSuccess()} />

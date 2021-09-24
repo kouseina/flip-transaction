@@ -56,4 +56,13 @@ export default StyleSheet.create({
   name: {
     textTransform: 'uppercase',
   },
+
+  senderBank: data => ({
+    textTransform: data.sender_bank.length <= 4 ? 'uppercase' : 'capitalize',
+  }),
+
+  beneficiaryBank: data => ({
+    textTransform:
+      data.beneficiary_bank.length <= 4 ? 'uppercase' : 'capitalize',
+  }),
 });

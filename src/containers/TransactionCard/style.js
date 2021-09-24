@@ -9,10 +9,9 @@ export default StyleSheet.create({
 
   padding: {
     padding: 16,
-    paddingLeft: 24,
+    paddingLeft: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
 
   labelLeft: isSuccess => ({
@@ -36,5 +35,19 @@ export default StyleSheet.create({
 
   name: {
     textTransform: 'uppercase',
+  },
+
+  senderBank: data => ({
+    textTransform: data.sender_bank.length <= 4 ? 'uppercase' : 'capitalize',
+  }),
+
+  beneficiaryBank: data => ({
+    textTransform:
+      data.beneficiary_bank.length <= 4 ? 'uppercase' : 'capitalize',
+  }),
+
+  column: {
+    flex: 1,
+    marginRight: 10,
   },
 });
